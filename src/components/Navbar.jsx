@@ -7,11 +7,10 @@ export default function Navbar({ theme, setTheme, views }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 25);
 
-      // Determine active section
       const sections = ['hero', 'projects', 'about', 'contact'];
-      const scrollPos = window.scrollY + 160;
+      const scrollPos = window.scrollY + 180;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -26,7 +25,7 @@ export default function Navbar({ theme, setTheme, views }) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -41,14 +40,14 @@ export default function Navbar({ theme, setTheme, views }) {
   return (
     <header className={`navbar-wrapper ${scrolled ? 'is-scrolled' : ''}`}>
       <nav className="navbar-pill glass-card">
-        {/* Logo */}
-        <a href="#hero" className="nav-logo" onClick={closeMobile} aria-label="Bethelhem - Home">
-          <span className="logo-symbol">&lt;</span>
+        {/* Brand Logo */}
+        <a href="#hero" className="nav-logo" onClick={closeMobile} aria-label="Bethelhem Ashenafi - Home">
+          <span className="logo-bracket">&lt;</span>
           <span className="logo-name">BA</span>
-          <span className="logo-symbol">/&gt;</span>
+          <span className="logo-bracket">/&gt;</span>
         </a>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Navigation Links */}
         <div className="nav-menu-desktop" role="menubar">
           <a
             href="#hero"
@@ -82,10 +81,22 @@ export default function Navbar({ theme, setTheme, views }) {
 
         {/* Right Actions */}
         <div className="nav-actions-group">
-          {/* Views Display */}
+          {/* Resume Quick Link */}
+          <a
+            href="/Bethelhem_Ashenafi_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-resume-btn"
+            title="View & Download Bethelhem's Resume (PDF)"
+          >
+            <span className="resume-icon">📄</span>
+            <span className="resume-text">Resume</span>
+          </a>
+
+          {/* Views Counter */}
           <div className="nav-views-pill" title="Total Portfolio Visits">
-            <span className="views-dot"></span>
-            <span className="views-text">{views?.toLocaleString() || 0} views</span>
+            <span className="views-dot" aria-hidden="true"></span>
+            <span className="views-text">{views ? views.toLocaleString() : 0} views</span>
           </div>
 
           {/* Theme Toggle */}
@@ -95,7 +106,9 @@ export default function Navbar({ theme, setTheme, views }) {
             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             aria-label="Toggle visual theme"
           >
-            <span className="theme-emoji">{theme === 'dark' ? '☀️' : '🌙'}</span>
+            <span className="theme-emoji" aria-hidden="true">
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </span>
           </button>
 
           {/* Hamburger (Mobile) */}
@@ -116,16 +129,25 @@ export default function Navbar({ theme, setTheme, views }) {
       <div className={`nav-drawer ${mobileOpen ? 'is-open' : ''}`}>
         <div className="nav-drawer-links">
           <a href="#hero" onClick={closeMobile}>
-            <span className="drawer-icon">🏠</span> Home
+            <span className="drawer-icon">⚡</span> Home
           </a>
           <a href="#projects" onClick={closeMobile}>
-            <span className="drawer-icon">💼</span> Projects
+            <span className="drawer-icon">💼</span> Projects Showcase
           </a>
           <a href="#about" onClick={closeMobile}>
             <span className="drawer-icon">👤</span> About & Skills
           </a>
           <a href="#contact" onClick={closeMobile}>
             <span className="drawer-icon">✉️</span> Contact
+          </a>
+          <a
+            href="/Bethelhem_Ashenafi_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMobile}
+            className="drawer-resume"
+          >
+            <span className="drawer-icon">📄</span> Download Resume (PDF)
           </a>
           <a
             href="https://www.linkedin.com/in/bethelhem-ashenafi-17092717b/"

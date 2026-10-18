@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 export default function Contact() {
@@ -6,6 +6,29 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [localTime, setLocalTime] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const timeStr = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Africa/Addis_Ababa',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        }).format(new Date());
+        setLocalTime(timeStr);
+      } catch {
+        // Fallback if Intl fails
+        setLocalTime("UTC+3");
+      }
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,7 +37,7 @@ export default function Contact() {
   const handleCopy = () => {
     navigator.clipboard.writeText("bettyashu5@gmail.com");
     setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+    setTimeout(() => setCopiedEmail(false), 2200);
   };
 
   const sendEmail = (e) => {
@@ -43,9 +66,9 @@ export default function Contact() {
       .catch((error) => {
         setStatus({
           type: "error",
-          message: "Failed to send message. Please reach out directly via email or phone.",
+          message: "Failed to send message via form. Please email directly at bettyashu5@gmail.com.",
         });
-        console.error(error);
+        console.error("Email send error:", error);
       })
       .finally(() => setLoading(false));
   };
@@ -85,7 +108,7 @@ export default function Contact() {
                 title="Copy email to clipboard"
                 aria-label="Copy email"
               >
-                {copiedEmail ? "Copied!" : "Copy"}
+                {copiedEmail ? "Copied! ✓" : "Copy"}
               </button>
             </div>
 
@@ -140,12 +163,20 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Location Card */}
+            {/* Location Card with Live Clock */}
             <div className="contact-info-card glass-card">
               <div className="info-card-icon" aria-hidden="true">📍</div>
               <div className="info-card-text">
-                <span className="info-card-label">Based in</span>
-                <span className="info-card-main-link">Addis Ababa, Ethiopia (UTC+3)</span>
+                <span className="info-card-label">Location & Time</span>
+                <div className="location-row">
+                  <span className="info-card-main-link">Addis Ababa, Ethiopia</span>
+                  {localTime && (
+                    <span className="live-clock-pill">
+                      <span className="clock-dot"></span>
+                      <span>{localTime} EAT</span>
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -153,6 +184,10 @@ export default function Contact() {
           {/* Right: Glass Contact Form */}
           <div className="contact-form-column">
             <form onSubmit={sendEmail} className="modern-glass-form glass-card">
+              <div className="form-header-badge">
+                <span className="badge-dot"></span>
+                <span>DIRECT INQUIRY</span>
+              </div>
               <h3 className="form-heading">Send a Message</h3>
               <p className="form-subtext">Fill out this quick form and I will respond to your inbox promptly.</p>
 

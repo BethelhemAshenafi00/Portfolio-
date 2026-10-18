@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 export default function Hero({ views }) {
   const [copied, setCopied] = useState(false);
+  const [activeCodeTab, setActiveCodeTab] = useState('developer.ts');
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('bettyashu5@gmail.com');
@@ -11,30 +12,54 @@ export default function Hero({ views }) {
 
   const techStack = [
     'React', 'ASP.NET Core', 'PostgreSQL', 'Angular', 'C#', 
-    'TypeScript', 'Entity Framework', 'REST APIs', 'SQL Server', 
-    'JavaScript ES6+', 'Git & GitHub', 'System Diagnostics'
+    'TypeScript', 'Entity Framework Core', 'RESTful APIs', 'SQL Server', 
+    'Clean Architecture', 'JavaScript ES6+', 'Git & GitHub', 'System Diagnostics'
   ];
+
+  const codeSnippets = {
+    'developer.ts': `const developer = {
+  name: "Bethelhem Ashenafi",
+  degree: "B.Sc. in Computer Science",
+  almaMater: "Ambo University",
+  specialties: ["ASP.NET Core", "React", "Angular", "PostgreSQL"],
+  cleanArchitecture: true,
+  itDiagnostics: true
+};`,
+    'tech-stack.json': `{
+  "frontend": ["React 19", "Angular", "TypeScript", "Tailwind"],
+  "backend": ["C#", "ASP.NET Core", "EF Core", "REST APIs"],
+  "database": ["PostgreSQL", "SQL Server", "Relational Models"],
+  "infrastructure": ["Hardware Diagnostics", "LAN Setup", "Deployments"]
+}`,
+    'status.yml': `status: "Open to Full-Stack & Software Roles"
+location: "Addis Ababa, Ethiopia (UTC+3)"
+availability: "Immediate"
+contact: "bettyashu5@gmail.com"
+willingToRelocate: true`
+  };
 
   return (
     <section id="hero" className="hero-section">
       <div className="hero-mesh-background" aria-hidden="true"></div>
+      <div className="hero-grid-pattern" aria-hidden="true"></div>
 
       <div className="container hero-container">
         {/* Left Column: Intro & Calls to Action */}
         <div className="hero-intro">
           <div className="hero-status-pill">
-            <span className="status-beacon"></span>
+            <span className="status-beacon" aria-hidden="true"></span>
             <span className="status-text">Open to Full-Stack & Software Roles</span>
           </div>
 
           <h1 className="hero-main-title">
-            Engineering scalable web apps with <span className="gradient-text">modern precision.</span>
+            Full-Stack <span className="gradient-text shimmer-text">Developer.</span>
           </h1>
 
           <p className="hero-subtext">
-            Hi, I'm <strong>Bethelhem Ashenafi</strong> 👋 — a Computer Science graduate from <strong>Ambo University</strong>. 
-            I design and build resilient, full-stack digital solutions by uniting clean <strong>React & Angular</strong> interfaces 
-            with secure <strong>ASP.NET Core & PostgreSQL</strong> backends.
+            Hi, I'm <strong>Bethelhem Ashenafi</strong> 👋 — a Computer Science graduate from{' '}
+            <strong>Ambo University</strong>. I architect resilient digital platforms by uniting clean, responsive{' '}
+            <strong>React & Angular</strong> interfaces with secure, high-throughput{' '}
+            <strong>ASP.NET Core & PostgreSQL</strong> backends.
           </p>
 
           <div className="hero-action-row">
@@ -42,9 +67,22 @@ export default function Hero({ views }) {
               <span>Explore Projects</span>
               <span className="btn-arrow-right">↓</span>
             </a>
+
+            <a
+              href="/Bethelhem_Ashenafi_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-modern btn-resume"
+              title="Download Bethelhem Ashenafi's Resume"
+            >
+              <span>Download CV</span>
+              <span className="btn-icon">📄</span>
+            </a>
+
             <a href="#contact" className="btn-modern btn-ghost">
               <span>Let's Talk</span>
             </a>
+
             <button 
               onClick={handleCopyEmail} 
               className={`btn-modern btn-clipboard ${copied ? 'is-copied' : ''}`}
@@ -83,9 +121,9 @@ export default function Hero({ views }) {
               <span>GitHub</span>
             </a>
 
-            <div className="social-views-badge">
-              <span className="sparkle-icon">✨</span>
-              <span><strong>{views?.toLocaleString() || 0}</strong> views</span>
+            <div className="social-views-badge" title="Verified Portfolio Visitors">
+              <span className="views-live-indicator"></span>
+              <span><strong>{views ? views.toLocaleString() : 0}</strong> views</span>
             </div>
           </div>
         </div>
@@ -93,46 +131,74 @@ export default function Hero({ views }) {
         {/* Right Column: Bento Developer Card */}
         <div className="hero-bento-visual">
           <div className="bento-profile-box glass-card">
+            {/* Profile Photo Area */}
             <div className="profile-photo-wrapper">
-              <div className="photo-glow-effect"></div>
+              <div className="photo-ambient-ring"></div>
               <img
                 src="/betty.jpg"
                 alt="Bethelhem Ashenafi"
                 className="profile-photo"
                 loading="eager"
               />
+              <div className="profile-online-badge" title="Active & Ready">
+                <span className="badge-pulse"></span>
+              </div>
               <div className="floating-badge-cs">
                 <span className="badge-icon">🎓</span>
                 <div className="badge-text">
                   <strong>Ambo University</strong>
-                  <span>Computer Science Graduate</span>
+                  <span>B.Sc. in Computer Science</span>
                 </div>
               </div>
             </div>
 
+            {/* Quick Metrics Bar */}
+            <div className="hero-quick-metrics">
+              <div className="quick-metric-item">
+                <span className="metric-val">4+</span>
+                <span className="metric-lbl">Full-Stack Apps</span>
+              </div>
+              <div className="metric-divider"></div>
+              <div className="quick-metric-item">
+                <span className="metric-val">.NET + React</span>
+                <span className="metric-lbl">Core Tech Stack</span>
+              </div>
+              <div className="metric-divider"></div>
+              <div className="quick-metric-item">
+                <span className="metric-val">Addis Ababa</span>
+                <span className="metric-lbl">Location (UTC+3)</span>
+              </div>
+            </div>
+
+            {/* Interactive Code Window */}
             <div className="profile-code-card">
               <div className="code-header">
-                <span className="code-dot red"></span>
-                <span className="code-dot yellow"></span>
-                <span className="code-dot green"></span>
-                <span className="code-title">developer.ts</span>
+                <div className="code-window-dots">
+                  <span className="code-dot red"></span>
+                  <span className="code-dot yellow"></span>
+                  <span className="code-dot green"></span>
+                </div>
+                <div className="code-tabs-list">
+                  {Object.keys(codeSnippets).map((filename) => (
+                    <button
+                      key={filename}
+                      onClick={() => setActiveCodeTab(filename)}
+                      className={`code-tab-btn ${activeCodeTab === filename ? 'active' : ''}`}
+                    >
+                      {filename}
+                    </button>
+                  ))}
+                </div>
               </div>
               <pre className="code-content">
-                <code>
-                  <span className="code-keyword">const</span> developer = &#123;{'\n'}
-                  {'  '}name: <span className="code-string">"Bethelhem Ashenafi"</span>,{'\n'}
-                  {'  '}role: <span className="code-string">"Full-Stack Engineer"</span>,{'\n'}
-                  {'  '}location: <span className="code-string">"Addis Ababa, ET"</span>,{'\n'}
-                  {'  '}stack: [<span className="code-string">"ASP.NET"</span>, <span className="code-string">"React"</span>, <span className="code-string">"Postgres"</span>]{'\n'}
-                  &#125;;
-                </code>
+                <code>{codeSnippets[activeCodeTab]}</code>
               </pre>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tech Marquee Ribbon */}
+      {/* Infinite Tech Marquee Ribbon */}
       <div className="hero-tech-ribbon" aria-hidden="true">
         <div className="marquee-track">
           {[...techStack, ...techStack].map((tech, index) => (

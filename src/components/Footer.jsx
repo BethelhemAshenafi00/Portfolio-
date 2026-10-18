@@ -11,12 +11,13 @@ export default function Footer() {
         <div className="footer-top-row">
           <div className="footer-brand-box">
             <a href="#hero" className="footer-logo">
-              <span className="logo-symbol">&lt;</span>
+              <span className="logo-bracket">&lt;</span>
               <span className="logo-name">BA</span>
-              <span className="logo-symbol">/&gt;</span>
+              <span className="logo-bracket">/&gt;</span>
             </a>
             <p className="footer-brand-desc">
-              Full-Stack Software Engineer • Building scalable web platforms with ASP.NET Core, React, and PostgreSQL.
+              Full-Stack Software Engineer & Ambo University CS Graduate.
+              Designing reliable digital platforms with clean ASP.NET Core, React, Angular, and PostgreSQL architectures.
             </p>
           </div>
 
@@ -25,6 +26,14 @@ export default function Footer() {
             <a href="#projects">Projects</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
+            <a 
+              href="/Bethelhem_Ashenafi_Resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="footer-resume-tag"
+            >
+              Resume (PDF) ↗
+            </a>
           </nav>
 
           <div className="footer-action-box">
@@ -43,7 +52,7 @@ export default function Footer() {
 
         <div className="footer-bottom-row">
           <p className="footer-copyright">
-            © {currentYear} Bethelhem Ashenafi. Built with React & modern CSS.
+            © {currentYear} Bethelhem Ashenafi. Crafted with React 19 & modern CSS architecture.
           </p>
 
           <div className="footer-social-strip">
