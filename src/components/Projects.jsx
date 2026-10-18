@@ -23,12 +23,11 @@ const projects = [
     views: [
       { label: "Customer Menu", image: "/menu.png" },
       { label: "Admin Dashboard", image: "/qr admin.png" },
-      { label: "QR Order", image: "/qr orders.png" },
-      { label: "QR Admin", image: "/qr admin.png" },
-      { label: "QR Login", image: "/qr login page.png" },
-      { label: "QR Category", image: "/qr catagory.png" },
-      { label: "QR Menu Item", image: "/qr menu items.png" },
-      { label: "QR Table", image: "/qr table.png" }
+      { label: "Orders", image: "/qr orders.png" },
+      { label: "Login", image: "/qr login page.png" },
+      { label: "Category", image: "/qr catagory.png" },
+      { label: "Menu Items", image: "/qr menu items.png" },
+      { label: "Tables", image: "/qr table.png" }
     ],
     demos: [
       {
@@ -241,7 +240,10 @@ export default function Projects() {
                         src={currentView.image}
                         alt={`${project.title} - ${currentView.label}`}
                         className="browser-screenshot"
-                        loading="lazy"
+                        decoding="async"
+                        onError={(e) => {
+                          e.currentTarget.style.opacity = '0.5';
+                        }}
                       />
                       <div className="screenshot-overlay">
                         {project.demos && project.demos[0] && (
